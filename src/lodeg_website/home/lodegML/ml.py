@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.preprocessing import StandardScaler, Imputer, LabelBinarizer
+from sklearn.preprocessing import StandardScaler, LabelBinarizer
+from sklearn.impute import SimpleImputer
 from sklearn.model_selection import GridSearchCV
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn import cluster, mixture
@@ -79,7 +80,7 @@ def executeUserClustering(courseInfo: dict):
     # Create pipeline for numerics values
     num_pipeline = Pipeline([
         ('selector', DataFrameSelector(_num_attribs)),  # Select numeric data
-        ('imputer', Imputer(strategy="median")),  # Fill missing data
+        ('imputer', SimpleImputer(strategy="median")),  # Fill missing data
         # Scale data (required by the clustering algorithms)
         ('std_scaler', StandardScaler())
     ])
@@ -155,7 +156,7 @@ def executeUserClustering(courseInfo: dict):
     affinity_propagation = cluster.AffinityPropagation(
         damping=params['damping'], preference=params['preference'])
     average_linkage = cluster.AgglomerativeClustering(
-        linkage="average", affinity="cityblock",
+        linkage="average", metric="cityblock",
         n_clusters=params['n_clusters'],
         connectivity=connectivity)
     birch = cluster.Birch(n_clusters=params['n_clusters'])
@@ -201,7 +202,7 @@ def executeUserClustering(courseInfo: dict):
 
         # Get predictions (clusters)
         if hasattr(algorithm, 'labels_'):
-            y_pred = algorithm.labels_.astype(np.int)
+            y_pred = algorithm.labels_.astype(int)
         else:
             y_pred = algorithm.predict(X)
 

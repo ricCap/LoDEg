@@ -78,18 +78,18 @@ def executeCompleteExtraction(context):
 # HEADERS #
 ###########
 
-@register.assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def getUserSessionsHeaders(context):
     return context['system'].getUserSessionsHeaders(
         context['course'], context['user'])
 
 
-@register.assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def getLessonsHeaders(context):
     return context['system'].getLessonsHeaders(context['course'])
 
 
-@register.assignment_tag(takes_context=True)
+@register.simple_tag(takes_context=True)
 def getCourses(context):
     return context['system'].getCourses()
 

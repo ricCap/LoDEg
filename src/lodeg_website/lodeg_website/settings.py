@@ -55,7 +55,7 @@ ROOT_URLCONF = 'lodeg_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -110,7 +110,6 @@ TIME_ZONE = 'CET'
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 
@@ -123,3 +122,6 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Keep integer primary keys used by the existing migrations
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
