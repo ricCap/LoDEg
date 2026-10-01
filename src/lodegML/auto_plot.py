@@ -262,7 +262,7 @@ class AutoPlot:
         """
         # Create the figure
         fig = plt.figure(figsize=(8, 8))
-        ax = fig.gca(projection='3d')
+        ax = fig.add_subplot(projection='3d')
 
         # Set z as lessons
         y_ticks = lessons_visualization.keys()
